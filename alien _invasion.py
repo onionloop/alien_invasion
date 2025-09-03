@@ -1,5 +1,5 @@
 import sys
-
+from settings import Settings
 import pygame
 
 class AlienInvasion:
@@ -9,6 +9,9 @@ class AlienInvasion:
         pygame.display.set_caption('Alien Invasion')
         self.clock = pygame.time.Clock()
         self.bg_color = (230, 230, 230)
+        self.settings = Settings()
+        self.screen = pygame.display.set_mode(
+            (self.settings.screenwidth, self.settings.screenheight))
     def run_game(self):
         while True:
             for event in pygame.event.get():
@@ -16,7 +19,7 @@ class AlienInvasion:
                     sys.exit()
             pygame.display.flip()
             self.clock.tick(60)
-            self.screen.fill(self.bg_color)
+            self.screen.fill(self.settings.bg_color)
 if __name__ == '__main__':
     ai = AlienInvasion()
     ai.run_game()
