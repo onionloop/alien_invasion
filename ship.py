@@ -12,4 +12,4 @@ class Ship:
         self.rect.midbottom = self.screen_rect.midbottom
 
     def blit_me(self):
-        self.screen.blit(self.screen_rect, self.rect)
+        self.screen.image(self.screen_rect, self.rect)
