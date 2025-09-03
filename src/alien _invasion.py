@@ -1,5 +1,5 @@
 import sys
-from settings import Settings
+from src.settings import Settings
 import pygame
 
 class AlienInvasion:
