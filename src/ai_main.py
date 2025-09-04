@@ -6,6 +6,7 @@ from ship import Ship
 
 
 class AlienInvasion:
+
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((1200, 800))
@@ -16,6 +17,7 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode(
             (self.settings.screenwidth, self.settings.screenheight))
         self.ship = Ship(self)
+
     def run_game(self):
         while True:
             for event in pygame.event.get():
