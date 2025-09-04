@@ -1,6 +1,9 @@
 import sys
 from src.settings import Settings
 import pygame
+from ship import Ship
+
+
 
 class AlienInvasion:
     def __init__(self):
@@ -12,6 +15,7 @@ class AlienInvasion:
         self.settings = Settings()
         self.screen = pygame.display.set_mode(
             (self.settings.screenwidth, self.settings.screenheight))
+        self.ship = Ship(self)
     def run_game(self):
         while True:
             for event in pygame.event.get():
@@ -20,6 +24,7 @@ class AlienInvasion:
             pygame.display.flip()
             self.clock.tick(60)
             self.screen.fill(self.settings.bg_color)
+            self.ship.blitme()
 
 
 if __name__ == '__main__':
