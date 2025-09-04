@@ -18,6 +18,7 @@ class AlienInvasion:
             (self.settings.screenwidth, self.settings.screenheight))
         self.ship = Ship(self)
 
+
     def run_game(self):
         while True:
             self._check_events()
@@ -36,6 +37,7 @@ class AlienInvasion:
         self.screen.fill(self.bg_color)
         self.ship.blitme()
         pygame.display.flip()
+
 
 
 if __name__ == '__main__':
