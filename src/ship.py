@@ -5,7 +5,7 @@ class Ship:
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 
-        self.image = pygame.image.load('/Users/amore/P1/alien_invasion/images/ship.bmp')
+        self.image = pygame.image.load('/images/ship.bmp')
         self.rect = self.image.get_rect()
 
         self.rect.midbottom = self.screen_rect.midbottom
