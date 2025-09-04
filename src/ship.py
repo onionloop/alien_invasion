@@ -14,7 +14,7 @@ class Ship:
 
     def update(self):
         if self.moving_right:
-            self.rect.x += 30
+            self.rect.x += 10
     def blitme(self):
         """.blit(source, destination)”"""
         self.screen.blit(self.image, self.rect)
