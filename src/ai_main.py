@@ -4,7 +4,6 @@ import pygame
 from ship import Ship
 
 
-
 class AlienInvasion:
 
     def __init__(self):
