@@ -16,6 +16,11 @@ class AlienInvasion:
             (self.settings.screenwidth, self.settings.screenheight))
         self.ship = Ship(self)
 
+        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+        self.settings.screenwidth = self.screen.get_rect().width
+        self.settings.screenheight = self.screen.get_rect().height
+
+
 
     def run_game(self):
         while True:
@@ -34,11 +39,14 @@ class AlienInvasion:
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
 
+
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+        elif event.key == pygame.K_q:
+            sys.exit()
 
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
