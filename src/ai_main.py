@@ -25,10 +25,6 @@ class AlienInvasion:
 
         self.fullscreen = False
 
-        self.show_fullscreen_msg = False
-        self.fullscreen_msg_start_time = 0
-        self.font = pygame.font.SysFont(None, 36)
-
     def run_game(self):
         while True:
             self._check_events()
@@ -84,11 +80,6 @@ class AlienInvasion:
         self.screen.fill(self.bg_color)
         self.ship.blitme()
         pygame.display.flip()
-
-    def _show_fullscreen_message(self, message):
-        text_surface = self.font.render(message, True, (255, 255, 255))
-        text_rect = text_surface.get_rect(midtop=(self.settings.screenwidth // 2, 10))
-        self.screen.blit(text_surface, text_rect)
 
 
 if __name__ == '__main__':
