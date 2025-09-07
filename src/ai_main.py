@@ -85,6 +85,11 @@ class AlienInvasion:
         self.ship.blitme()
         pygame.display.flip()
 
+    def _show_fullscreen_message(self, message):
+        text_surface = self.font.render(message, True, (255, 255, 255))
+        text_rect = text_surface.get_rect(midtop=(self.settings.screenwidth // 2, 10))
+        self.screen.blit(text_surface, text_rect)
+
 
 if __name__ == '__main__':
     ai = AlienInvasion()
