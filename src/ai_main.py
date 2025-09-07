@@ -25,6 +25,10 @@ class AlienInvasion:
 
         self.fullscreen = False
 
+        self.show_fullscreen_msg = False
+        self.fullscreen_msg_start_time = 0
+        self.font = pygame.font.SysFont(None, 36)
+
     def run_game(self):
         while True:
             self._check_events()
