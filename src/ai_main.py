@@ -2,6 +2,7 @@ import sys
 from src.settings import Settings
 import pygame
 from ship import Ship
+from bullets import Bullets
 
 class AlienInvasion:
 
@@ -25,12 +26,15 @@ class AlienInvasion:
 
         self.fullscreen = False
 
+        self.bullets = pygame.sprite.Group()
+
     def run_game(self):
         while True:
             self._check_events()
             self._update_screen()
             self.clock.tick(60)
             self.ship.update()
+            self.bullets.update()
 
     def _check_events(self):
         for event in pygame.event.get():
@@ -70,6 +74,13 @@ class AlienInvasion:
                     self.settings.screenwidth, self.settings.screenheight = self.windowed_size
                     self.fullscreen = False
 
+            elif event.key == pygame.K_SPACE:
+                self._fire_bullet()
+
+    def _fire_bullet(self):
+        new_bullet = Bullets(self)
+        self.bullets.add(new_bullet)
+
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
@@ -78,8 +89,11 @@ class AlienInvasion:
 
     def _update_screen(self):
         self.screen.fill(self.bg_color)
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         self.ship.blitme()
         pygame.display.flip()
+
 
 
 if __name__ == '__main__':
