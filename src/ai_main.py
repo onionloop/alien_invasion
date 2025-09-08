@@ -1,7 +1,7 @@
 import sys
 from src.settings import Settings
 import pygame
-from ship import Ship
+from images.ship import Ship
 from bullets import Bullets
 
 class AlienInvasion:
