@@ -11,7 +11,7 @@ class AlienInvasion:
         pygame.display.set_caption('Alien Invasion')
 
         self.clock = pygame.time.Clock()
-        self.bg_color = (230, 230, 230)
+        self.bg_color = (0,0,0)
 
         self.settings = Settings()
 
