@@ -11,30 +11,25 @@ class AlienInvasion:
         pygame.display.set_caption('Alien Invasion')
 
         self.clock = pygame.time.Clock()
-        self.bg_color = (0,0,0)
+        self.bg_color = (0, 0, 0)
 
         self.settings = Settings()
-
-
         self.screen = pygame.display.set_mode(
             (self.settings.screenwidth, self.settings.screenheight),
             pygame.RESIZABLE
         )
 
         self.ship = Ship(self)
-
-
         self.fullscreen = False
-
         self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         while True:
             self._check_events()
+            self.ship.update()
+            self._update_bullets()
             self._update_screen()
             self.clock.tick(60)
-            self.ship.update()
-            self.bullets.update()
 
     def _check_events(self):
         for event in pygame.event.get():
@@ -51,41 +46,44 @@ class AlienInvasion:
                 self.ship.x = float(self.ship.rect.x)
 
     def _check_keydown_events(self, event):
-            if event.key == pygame.K_RIGHT:
-                self.ship.moving_right = True
-            elif event.key == pygame.K_LEFT:
-                self.ship.moving_left = True
-            elif event.key == pygame.K_q:
-                sys.exit()
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            self.ship.moving_right = True
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            self.ship.moving_left = True
+        elif event.key == pygame.K_q:
+            sys.exit()
+        elif event.key == pygame.K_f:
+            if not self.fullscreen:
+                self.windowed_size = self.screen.get_size()
+                self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+                self.fullscreen = True
+            else:
+                self.screen = pygame.display.set_mode(self.windowed_size, pygame.RESIZABLE)
+                self.settings.screenwidth, self.settings.screenheight = self.windowed_size
+                self.fullscreen = False
+        elif event.key == pygame.K_ESCAPE:
+            if self.fullscreen:
+                self.screen = pygame.display.set_mode(self.windowed_size, pygame.RESIZABLE)
+                self.settings.screenwidth, self.settings.screenheight = self.windowed_size
+                self.fullscreen = False
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
-            elif event.key == pygame.K_f:
-                if not self.fullscreen:
-                    self.windowed_size = self.screen.get_size()
-                    self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-                    self.fullscreen = True
-                else:
-                    self.screen = pygame.display.set_mode(self.windowed_size, pygame.RESIZABLE)
-                    self.settings.screenwidth, self.settings.screenheight = self.windowed_size
-                    self.fullscreen = False
-
-            elif event.key == pygame.K_ESCAPE:
-                if self.fullscreen:
-                    self.screen = pygame.display.set_mode(self.windowed_size, pygame.RESIZABLE)
-                    self.settings.screenwidth, self.settings.screenheight = self.windowed_size
-                    self.fullscreen = False
-
-            elif event.key == pygame.K_SPACE:
-                self._fire_bullet()
+    def _check_keyup_events(self, event):
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            self.ship.moving_left = False
 
     def _fire_bullet(self):
         new_bullet = Bullets(self)
         self.bullets.add(new_bullet)
 
-    def _check_keyup_events(self, event):
-        if event.key == pygame.K_RIGHT:
-            self.ship.moving_right = False
-        elif event.key == pygame.K_LEFT:
-            self.ship.moving_left = False
+    def _update_bullets(self):
+        self.bullets.update()
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
     def _update_screen(self):
         self.screen.fill(self.bg_color)
@@ -93,7 +91,6 @@ class AlienInvasion:
             bullet.draw_bullet()
         self.ship.blitme()
         pygame.display.flip()
-
 
 
 if __name__ == '__main__':
