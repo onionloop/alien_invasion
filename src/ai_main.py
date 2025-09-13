@@ -6,7 +6,6 @@ from bullets import Bullets
 from alien_ship import Alien
 
 class AlienInvasion:
-
     def __init__(self):
         pygame.init()
         pygame.display.set_caption('Alien Invasion')
@@ -45,8 +44,12 @@ class AlienInvasion:
             elif event.type == pygame.VIDEORESIZE and not self.fullscreen:
                 self.settings.screenwidth, self.settings.screenheight = event.size
                 self.screen = pygame.display.set_mode(event.size, pygame.RESIZABLE)
+
                 self.ship.rect.midbottom = self.screen.get_rect().midbottom
                 self.ship.x = float(self.ship.rect.x)
+
+                self.aliens.empty()
+                self._create_fleet()
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
@@ -59,11 +62,19 @@ class AlienInvasion:
             if not self.fullscreen:
                 self.windowed_size = self.screen.get_size()
                 self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+                self.settings.screenwidth, self.settings.screenheight = self.screen.get_size()
                 self.fullscreen = True
             else:
                 self.screen = pygame.display.set_mode(self.windowed_size, pygame.RESIZABLE)
                 self.settings.screenwidth, self.settings.screenheight = self.windowed_size
                 self.fullscreen = False
+
+            self.ship.rect.midbottom = self.screen.get_rect().midbottom
+            self.ship.x = float(self.ship.rect.x)
+
+            self.aliens.empty()
+            self._create_fleet()
+
         elif event.key == pygame.K_ESCAPE:
             if self.fullscreen:
                 self.screen = pygame.display.set_mode(self.windowed_size, pygame.RESIZABLE)
