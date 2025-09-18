@@ -115,7 +115,7 @@ class AlienInvasion:
         new_alien.x = x_position
         new_alien.rect.x = x_position
         new_alien.rect.y = y_position
-        self.aliens.add(new_alien)
+        self.aliens.add(new_alien
 
 
     def _update_screen(self):
